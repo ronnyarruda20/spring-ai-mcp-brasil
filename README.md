@@ -1,5 +1,7 @@
 # spring-ai-mcp-brasil
 
+![spring-ai-mcp-brasil: servidor MCP em Java para dados públicos brasileiros](docs/banner.jpg)
+
 [![CI](https://github.com/ronnyarruda20/spring-ai-mcp-brasil/actions/workflows/ci.yml/badge.svg)](https://github.com/ronnyarruda20/spring-ai-mcp-brasil/actions/workflows/ci.yml)
 ![Java 21](https://img.shields.io/badge/Java-21-orange)
 ![Spring Boot 4](https://img.shields.io/badge/Spring%20Boot-4.0-6db33f)
