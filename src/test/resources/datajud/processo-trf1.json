@@ -1,0 +1,88 @@
+{
+  "took": 5,
+  "timed_out": false,
+  "hits": {
+    "total": {
+      "value": 1,
+      "relation": "eq"
+    },
+    "max_score": 1.0,
+    "hits": [
+      {
+        "_index": "api_publica_trf1",
+        "_id": "TRF1_G2_10009630720214014004",
+        "_score": 1.0,
+        "_source": {
+          "id": "TRF1_G2_10009630720214014004",
+          "tribunal": "TRF1",
+          "grau": "G2",
+          "numeroProcesso": "10009630720214014004",
+          "dataAjuizamento": "20220704234732",
+          "nivelSigilo": 0,
+          "orgaoJulgador": {
+            "codigo": 86429,
+            "nome": "Gabinete 31",
+            "codigoMunicipioIBGE": 743
+          },
+          "classe": {
+            "codigo": 417,
+            "nome": "Apelação Criminal"
+          },
+          "sistema": {
+            "codigo": 1,
+            "nome": "PJe"
+          },
+          "formato": {
+            "codigo": 1,
+            "nome": "Eletrônico"
+          },
+          "dataHoraUltimaAtualizacao": "2026-09-21T15:09:54.727000Z",
+          "@timestamp": "2026-09-21T15:09:54.727000Z",
+          "movimentos": [
+            {
+              "codigo": 26,
+              "dataHora": "2022-07-04T23:47:35.000Z",
+              "nome": "Distribuição",
+              "complementosTabelados": [
+                {
+                  "codigo": 2,
+                  "descricao": "tipo_de_distribuicao_redistribuicao",
+                  "valor": 2,
+                  "nome": "sorteio"
+                }
+              ],
+              "orgaoJulgador": {
+                "codigo": "67814",
+                "nome": "Gabinete 08"
+              }
+            },
+            {
+              "codigo": 981,
+              "dataHora": "2022-07-04T23:47:38.000Z",
+              "nome": "Recebimento",
+              "orgaoJulgador": {
+                "codigo": "67814",
+                "nome": "Gabinete 08"
+              }
+            },
+            {
+              "codigo": 132,
+              "dataHora": "2022-07-04T23:47:42.000Z",
+              "nome": "Recebimento",
+              "orgaoJulgador": {
+                "codigo": "67814",
+                "nome": "Gabinete 08"
+              }
+            }
+          ],
+          "assuntos": [
+            {
+              "codigo": 3604,
+              "nome": "Crimes de Responsabilidade"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

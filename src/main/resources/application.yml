@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: spring-ai-mcp-brasil
+  main:
+    banner-mode: off
+  ai:
+    mcp:
+      server:
+        name: mcp-brasil
+        version: 0.1.0
+        type: sync
+        protocol: streamable
+        capabilities:
+          tool: true
+          resource: false
+          prompt: false
+          completion: false
+        instructions: >
+          Ferramentas de consulta a dados públicos brasileiros. Use consultar_processo para metadados e
+          andamentos de processos judiciais (DataJud/CNJ), consultar_cnpj para dados cadastrais de empresas,
+          consultar_cep para endereços e listar_feriados para feriados nacionais. Todas são somente leitura.
+
+mcp-brasil:
+  datajud:
+    api-key: ${DATAJUD_API_KEY:cDZHYzlZa0JadVREZDJCendQbXY6SkJlTzNjLV9TRENyQk1RdnFKZGRQdw==}
+
+server:
+  port: ${PORT:8080}
