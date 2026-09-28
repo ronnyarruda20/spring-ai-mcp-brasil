@@ -80,8 +80,18 @@ class BrasilApiClientTest {
         var feriados = cliente.feriados(2026);
 
         assertThat(feriados).hasSize(14);
-        assertThat(feriados.getFirst()).isEqualTo(new Modelos.Feriado("2026-01-01", "Confraternização mundial", "quinta-feira"));
-        assertThat(feriados).extracting(Modelos.Feriado::nome).contains("Carnaval", "Natal");
+        assertThat(feriados.getFirst()).isEqualTo(
+                new Modelos.Feriado("2026-01-01", "Confraternização mundial", "quinta-feira", "feriado", false));
+        assertThat(feriados).filteredOn(f -> f.tipo().equals("ponto facultativo"))
+                .extracting(Modelos.Feriado::data)
+                .containsExactly("2026-02-16", "2026-02-17", "2026-06-04"); // Carnaval (2 dias) e Corpus Christi
+        assertThat(feriados).filteredOn(f -> f.tipo().equals("data comemorativa"))
+                .extracting(Modelos.Feriado::nome).containsExactly("Páscoa");
+        assertThat(feriados).filteredOn(f -> f.tipo().equals("feriado")).hasSize(10)
+                .extracting(Modelos.Feriado::nome).contains("Sexta-feira Santa", "Dia da consciência negra", "Natal");
+        // Em 2026, a Páscoa (05/04) e a Proclamação da República (15/11) caem no domingo.
+        assertThat(feriados).filteredOn(Modelos.Feriado::caiNoFimDeSemana)
+                .extracting(Modelos.Feriado::nome).containsExactly("Páscoa", "Proclamação da República");
     }
 
     private static org.springframework.test.web.client.ResponseCreator json(String caminho) {

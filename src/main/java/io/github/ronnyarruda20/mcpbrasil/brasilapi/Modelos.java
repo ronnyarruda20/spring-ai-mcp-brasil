@@ -103,7 +103,12 @@ public final class Modelos {
     record FeriadoBrasilApi(String date, String name, String type, String weekday) {
     }
 
-    /** Item devolvido por {@code listar_feriados}. */
-    public record Feriado(String data, String nome, String diaDaSemana) {
+    /**
+     * Item devolvido por {@code listar_feriados}.
+     *
+     * @param tipo             "feriado", "ponto facultativo" ou "data comemorativa" (ver {@link TipoFeriado})
+     * @param caiNoFimDeSemana true quando a data é sábado ou domingo e, portanto, não tira um dia útil
+     */
+    public record Feriado(String data, String nome, String diaDaSemana, String tipo, boolean caiNoFimDeSemana) {
     }
 }

@@ -60,8 +60,11 @@ public class BrasilApiTools {
     @McpTool(name = "listar_feriados",
             title = "Listar feriados nacionais",
             description = """
-                    Lista os feriados nacionais brasileiros de um ano, incluindo os móveis (Carnaval, Sexta-feira Santa, \
-                    Corpus Christi). Não inclui feriados estaduais nem municipais. Útil para calcular prazos em dias úteis.""",
+                    Lista as datas nacionais de um ano, incluindo as móveis, com o tipo de cada uma: "feriado" \
+                    (lei federal), "ponto facultativo" (Carnaval e Corpus Christi, que só viram feriado se estado, \
+                    município ou tribunal decretar) ou "data comemorativa" (Páscoa). Indica também se a data cai no \
+                    fim de semana. Não inclui feriados estaduais, municipais nem suspensões de expediente dos tribunais; \
+                    para contar prazo processual, confira também o calendário do tribunal.""",
             annotations = @McpTool.McpAnnotations(readOnlyHint = true, destructiveHint = false,
                     idempotentHint = true, openWorldHint = true))
     public List<Feriado> listarFeriados(

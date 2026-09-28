@@ -24,7 +24,7 @@ e o modelo chama as ferramentas certas, com dados oficiais, em vez de adivinhar.
 | `consultar_processo` | Metadados e andamentos de um processo: tribunal, grau, classe, assuntos, órgão julgador, movimentações | [API Pública do DataJud (CNJ)](https://datajud-wiki.cnj.jus.br/api-publica/) |
 | `consultar_cnpj` | Razão social, situação cadastral, CNAE, endereço, porte, Simples/MEI e quadro de sócios | [BrasilAPI](https://brasilapi.com.br) / Receita Federal |
 | `consultar_cep` | Logradouro, bairro, cidade, UF, código IBGE e coordenadas | BrasilAPI |
-| `listar_feriados` | Feriados nacionais do ano, incluindo os móveis | BrasilAPI |
+| `listar_feriados` | Datas nacionais do ano, separando feriado, ponto facultativo e data comemorativa, e indicando as que caem no fim de semana | BrasilAPI |
 
 Todas são somente leitura e declaram isso ao cliente (`readOnlyHint`).
 
@@ -35,6 +35,7 @@ Todas são somente leitura e declaram isso ao cliente (`readOnlyHint`).
 - **CNPJ alfanumérico.** A validação já aceita o formato que a Receita passou a emitir em julho de 2026 (IN RFB 2.229/2024), testada com o exemplo oficial `12.ABC.345/01DE-35`.
 - **Nova tentativa em sobrecarga.** O DataJud devolve HTTP 429 com frequência. Chamadas com 429, 5xx ou timeout são repetidas com espera exponencial; erros 4xx voltam na hora. Veja [`Tentativas`](src/main/java/io/github/ronnyarruda20/mcpbrasil/http/Tentativas.java).
 - **Erros que o modelo entende.** Falhas viram resultado de erro da ferramenta com texto em português ("CNPJ com dígito verificador inválido", "o DataJud está sobrecarregado, tente em alguns minutos"), para o assistente explicar ao usuário em vez de travar.
+- **Feriado não é tudo igual.** A BrasilAPI lista Carnaval e Corpus Christi como feriados nacionais, mas pela lei federal eles são ponto facultativo, e a Páscoa é só um domingo. A ferramenta classifica cada data como no calendário oficial do governo federal, para o modelo não contar errado um prazo em dias úteis. Veja [`TipoFeriado`](src/main/java/io/github/ronnyarruda20/mcpbrasil/brasilapi/TipoFeriado.java).
 - **Menos dados pessoais.** O resumo de CNPJ não devolve telefone nem e-mail.
 
 ## Como rodar
@@ -116,7 +117,7 @@ O CI também constrói a imagem Docker e verifica que o servidor responde ao `in
 
 - O DataJud traz **metadados e andamentos**, não o conteúdo das peças nem o nome das partes. Processos sigilosos não aparecem.
 - O STF não está na API pública do DataJud.
-- Feriados são só os nacionais; estaduais e municipais ficam de fora.
+- Feriados são só os nacionais. Estaduais, municipais e suspensões de expediente dos tribunais ficam de fora.
 - Os dados vêm de APIs públicas de terceiros, sem garantia de disponibilidade. Não use como única fonte para contagem de prazo processual.
 
 ## Stack

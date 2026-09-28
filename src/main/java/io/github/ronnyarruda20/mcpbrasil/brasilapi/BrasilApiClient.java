@@ -1,5 +1,7 @@
 package io.github.ronnyarruda20.mcpbrasil.brasilapi;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -81,7 +83,16 @@ public class BrasilApiClient {
                 () -> http.get().uri("/feriados/v1/{ano}", ano).retrieve()
                         .body(new ParameterizedTypeReference<List<Modelos.FeriadoBrasilApi>>() {
                         }));
-        return r.stream().map(f -> new Feriado(f.date(), f.name(), f.weekday())).toList();
+        return r.stream().map(BrasilApiClient::feriado).toList();
+    }
+
+    static Feriado feriado(Modelos.FeriadoBrasilApi f) {
+        boolean fimDeSemana = false;
+        if (f.date() != null) {
+            var dia = LocalDate.parse(f.date()).getDayOfWeek();
+            fimDeSemana = dia == DayOfWeek.SATURDAY || dia == DayOfWeek.SUNDAY;
+        }
+        return new Feriado(f.date(), f.name(), f.weekday(), TipoFeriado.classificar(f.name()).descricao(), fimDeSemana);
     }
 
     private <T> T chamar(String oQue, String naoEncontrado, Supplier<T> chamada) {
